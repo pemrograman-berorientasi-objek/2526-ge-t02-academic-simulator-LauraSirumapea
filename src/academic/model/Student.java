@@ -39,4 +39,4 @@ public class Student {
     public String toString() {
         return nim + "|" + name + "|" + entranceYear + "|" + major;
     }
-}
+} 
