@@ -41,5 +41,5 @@ public class Course {
     @Override
     public String toString() {
         return code + "|" + name + "|" + credits + "|" + passingGrade;
-    }
+    } 
 } 

@@ -1,7 +1,7 @@
 package academic.driver;
 
 /**
- * @author 12S24057-Laura Awise
+ * @author 12S24057-LAURA AWISE
  */
 
 import academic.model.Enrollment;
@@ -12,57 +12,39 @@ public class Driver3 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Enrollment> existingEnrollments = new ArrayList<>();
+        ArrayList<Enrollment> enrollments = new ArrayList<>();
 
-        // Tahap 1: Input Data Enrollment
-        // Gunakan hasNextLine() untuk mencegah NoSuchElementException
+        // Loop untuk menerima input data enrollment
+        // Menggunakan hasNextLine untuk mencegah error 'No line found' di GitHub
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            
+            // Berhenti jika menemukan tanda ---
             if (line.equals("---")) {
                 break;
             }
 
             String[] segments = line.split("#");
             if (segments.length == 4) {
-                String nim = segments[0];
-                String courseCode = segments[1];
+                String courseCode = segments[0];
+                String nim = segments[1];
                 String academicYear = segments[2];
                 String semester = segments[3];
 
-                Enrollment enrollment = new Enrollment(nim, courseCode, academicYear, semester);
-                existingEnrollments.add(enrollment);
+                // Buat objek Enrollment
+                Enrollment enrollment = new Enrollment(courseCode, nim, academicYear, semester);
+                
+                // Set grade ke "None" sesuai permintaan output
+                enrollment.setGrade("None");
+                
+                // Simpan ke list
+                enrollments.add(enrollment);
             }
         }
 
-        // Tahap 2: Query Pencarian
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            if (line.equals("---")) {
-                break;
-            }
-
-            String[] querySegments = line.split("#");
-            if (querySegments.length == 4) {
-                String queryNim = querySegments[0];
-                String queryCourseCode = querySegments[1];
-                String queryAcademicYear = querySegments[2];
-                String querySemester = querySegments[3];
-                
-                // Gunakan default sesuai format soal, biasanya "None"
-                String status = "None"; 
-
-                for (Enrollment existing : existingEnrollments) {
-                    if (existing.getNim().equals(queryNim) &&
-                        existing.getCourseCode().equals(queryCourseCode) &&
-                        existing.getAcademicYear().equals(queryAcademicYear) &&
-                        existing.getSemester().equals(querySemester)) {
-                        status = "Aktif"; // Sesuaikan jika di soal statusnya bukan "Aktif"
-                        break;
-                    }
-                }
-                // Format output: NIM|KODE|TAHUN|SEMESTER|STATUS
-                System.out.println(queryNim + "|" + queryCourseCode + "|" + queryAcademicYear + "|" + querySemester + "|" + status);
-            }
+        // Cetak semua enrollment yang sudah dimasukkan
+        for (Enrollment e : enrollments) {
+            System.out.println(e.toString());
         }
 
         scanner.close();

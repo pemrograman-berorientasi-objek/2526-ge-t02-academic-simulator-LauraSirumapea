@@ -38,5 +38,5 @@ public class Student {
     @Override
     public String toString() {
         return nim + "|" + name + "|" + entranceYear + "|" + major;
-    }
-} 
+    } 
+}
